@@ -5,10 +5,10 @@ sys.path.insert(0, os.path.join(os.path.dirname(__file__), ".."))
 from ssfa.runner import run, final_acc
 
 GRID = {
-    "bp":        ("bp",   {},                                   [0.03, 0.1, 0.3]),
+    "bp":        ("bp",   {},                                   [0.01, 0.03, 0.1, 0.3]),
     "bp_accum5": ("bp",   {"accum": 5},                         [0.1, 0.3, 1.0]),
-    "dfa":       ("ssfa", {"schedule": "dense", "precond": False}, [0.1, 0.2, 0.5, 1.0]),
-    "ssfa_p5":   ("ssfa", {"P": 5, "precond": False},           [0.2, 0.5, 1.0, 2.0]),
+    "dfa":       ("ssfa", {"schedule": "dense", "precond": False}, [0.02, 0.05, 0.1, 0.2, 0.5, 1.0]),
+    "ssfa_p5":   ("ssfa", {"P": 5, "precond": False},           [0.02, 0.05, 0.1, 0.2, 0.5, 1.0, 2.0]),
 }
 if __name__ == "__main__":
     best = {}
@@ -20,5 +20,7 @@ if __name__ == "__main__":
             rows = [(final_acc(run(allspecs[(n, lr)]))[0] * 100, lr) for lr in lrs]
             print(ds, n, [(lr, round(a, 2)) for a, lr in rows], flush=True)
             best[f"{ds}/{n}"] = max(rows)[1]
+            if best[f"{ds}/{n}"] in (lrs[0], lrs[-1]):
+                print("  WARNING: grid edge", flush=True)
     print(best)
     json.dump(best, open("results/best_lr_large.json", "w"), indent=1)

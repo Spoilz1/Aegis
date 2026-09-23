@@ -1,0 +1,10 @@
+{
+ "mnist/bp": 0.1,
+ "mnist/bp_accum5": 0.3,
+ "mnist/dfa": 0.2,
+ "mnist/ssfa_p5": 0.2,
+ "fashion/bp": 0.03,
+ "fashion/bp_accum5": 0.3,
+ "fashion/dfa": 0.05,
+ "fashion/ssfa_p5": 0.1
+}
