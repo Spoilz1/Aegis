@@ -64,6 +64,9 @@ def make_schedule(kind, L, P, rng=None):
             s = [l for l in idx[:-1] if (t + l) % P == 0]
             return s + [L - 1]
         return f
+    if kind == "subset":           # uniform random ceil(L/P)-subset each step (LISA-style)
+        k = -(-L // P)
+        return lambda t: sorted(rng.choice(L, k, replace=False).tolist())
     if kind == "bernoulli":        # stochastic, rate 1/P, no hard bound
         return lambda t: [l for l in idx if rng.rand() < 1.0 / P]
     raise ValueError(kind)
@@ -211,3 +214,40 @@ class SSFA(Trainer):
             if l > 0:
                 delta = (delta @ Ws[l]) * (1 - A[l] ** 2)
         return sorted(out)
+
+
+class SparseBP(Trainer):
+    """Exact-gradient sparse updates: only layers in S_t are written; the
+    backward sweep stops at min(S_t), so activations below the lowest
+    scheduled layer are discarded during the forward pass (the schedule is
+    known in advance). Plain SGD."""
+
+    def __init__(self, dims, seed, batch=32, lr=0.1, P=5, schedule="stagger"):
+        super().__init__(dims, seed, batch)
+        self.lr, self.P = lr, P
+        self.sched = make_schedule(schedule, self.L, P, np.random.RandomState(seed + 10_000))
+        self.bwd_layers = 0      # layers traversed by backward sweeps (compute proxy)
+
+    def step(self, X, Y):
+        Ws, bs, L = self.Ws, self.bs, self.L
+        S = self.sched(self.t)
+        lo = min(S)
+        A = {}
+        a = X
+        for l in range(L):
+            if l >= lo:
+                A[l] = a                      # input of layer l, needed for l >= lo
+            z = a @ Ws[l].T + bs[l]
+            a = softmax(z) if l == L - 1 else np.tanh(z)
+        delta = (a - Y) / X.shape[0]
+        Sset = set(S)
+        for l in range(L - 1, lo - 1, -1):
+            if l in Sset:
+                gW, gb = delta.T @ A[l], delta.sum(0)
+            if l > lo:
+                delta = (delta @ Ws[l]) * (1 - A[l] ** 2)
+            if l in Sset:
+                Ws[l] -= self.lr * gW
+                bs[l] -= self.lr * gb
+                self.writes += 1
+        self.bwd_layers += L - lo

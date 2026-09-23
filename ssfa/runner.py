@@ -12,7 +12,7 @@ import multiprocessing as mp
 import numpy as np
 
 from . import data
-from .core import BP, SSFA
+from .core import BP, SSFA, SparseBP
 
 ROOT = os.path.join(os.path.dirname(__file__), "..", "results", "runs")
 _DATA = {}
@@ -38,11 +38,13 @@ def run_one(spec):
     D = _DATA[k]
     kw = dict(spec.get("kw", {}))
     dims = dims_for(spec["dataset"], kw.pop("width", 256), kw.pop("depth", 6))
-    cls = BP if spec["method"] == "bp" else SSFA
+    cls = {"bp": BP, "ssfa": SSFA, "sbp": SparseBP}[spec["method"]]
     tr = cls(dims, spec["seed"], **kw)
     hist = tr.fit(D, spec["epochs"], eval_every_steps=spec.get("eval_every"))
     out = dict(spec=spec, hist=hist)
-    if spec["method"] != "bp" and spec.get("align"):
+    if hasattr(tr, "bwd_layers"):
+        out["bwd_layers_per_step"] = tr.bwd_layers / max(tr.t, 1)
+    if spec["method"] == "ssfa" and spec.get("align"):
         Xtr, Ytr = D[0], D[1]
         out["align"] = tr.alignment(Xtr[:256], Ytr[:256])
     os.makedirs(ROOT, exist_ok=True)
