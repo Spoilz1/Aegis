@@ -1,0 +1,35 @@
+(a) spec formula 0.264 | distinct-tensor retained 0.517 | peak live 0.588 | total incl. weights 0.984
+
+(b) B=32, digits net; ratios vs plain backprop
+method                                 retained  actpeak    total  flops
+bp                                        1.000    1.000    1.000   1.00
+bp ckpt keep=[0, 3, 5, 6]                 0.523    0.588    0.948   1.14
+bp ckpt keep=[0, 2, 3, 5, 6]              0.682    0.726    0.965   1.08
+bp ckpt keep=[0, 2, 3, 4, 5, 6]           0.841    0.863    0.983   1.02
+bp batch 8                                0.250    0.250    0.905   0.25
+bp accum 5 (m=4 microbatches)             0.250    0.250    1.641   1.00
+bp width 128                              0.523    0.520    0.295   0.26
+bp width 64                               0.284    0.280    0.098   0.07
+ssfa P2                                   1.000    1.005    1.037   0.51
+ssfa P2 (Omega from seed)                 1.000    1.005    1.004   0.51
+ssfa P3                                   0.682    0.731    1.002   0.45
+ssfa P3 (Omega from seed)                 0.682    0.731    0.969   0.45
+ssfa P5                                   0.517    0.588    0.984   0.40
+ssfa P5 (Omega from seed)                 0.517    0.588    0.951   0.40
+ssfa P7                                   0.318    0.549    0.979   0.38
+ssfa P7 (Omega from seed)                 0.318    0.549    0.946   0.38
+ssfa P5 blocked                           0.477    0.686    0.996   0.40
+
+(c) total memory SSFA(P=5)/BP and best-checkpoint/BP vs batch size
+digits B=    1  activations are  0.4% of BP total | SSFA 1.039 | best ckpt 0.998 (flops x1.14)
+digits B=    8  activations are  3.5% of BP total | SSFA 1.025 | best ckpt 0.986 (flops x1.14)
+digits B=   32  activations are 12.6% of BP total | SSFA 0.984 | best ckpt 0.948 (flops x1.14)
+digits B=  128  activations are 36.6% of BP total | SSFA 0.875 | best ckpt 0.849 (flops x1.14)
+digits B=  512  activations are 69.8% of BP total | SSFA 0.725 | best ckpt 0.713 (flops x1.14)
+digits B= 2048  activations are 90.2% of BP total | SSFA 0.633 | best ckpt 0.629 (flops x1.14)
+mnist  B=    1  activations are  0.4% of BP total | SSFA 1.023 | best ckpt 0.999 (flops x1.21)
+mnist  B=    8  activations are  2.7% of BP total | SSFA 1.015 | best ckpt 0.992 (flops x1.21)
+mnist  B=   32  activations are 10.1% of BP total | SSFA 0.992 | best ckpt 0.970 (flops x1.21)
+mnist  B=  128  activations are 31.1% of BP total | SSFA 0.924 | best ckpt 0.908 (flops x1.21)
+mnist  B=  512  activations are 64.4% of BP total | SSFA 0.817 | best ckpt 0.809 (flops x1.21)
+mnist  B= 2048  activations are 87.8% of BP total | SSFA 0.742 | best ckpt 0.739 (flops x1.21)

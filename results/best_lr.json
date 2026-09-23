@@ -1,0 +1,9 @@
+{
+ "bp": 0.3,
+ "bp_b8": 0.1,
+ "bp_accum5": 0.3,
+ "dfa": 0.5,
+ "dfa_noprec": 0.5,
+ "ssfa_p5": 0.5,
+ "ssfa_p5_noprec": 0.5
+}

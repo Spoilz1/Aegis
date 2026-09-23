@@ -1,0 +1,26 @@
+
+== digits: test accuracy at the last eval within a TRAIN-TIME budget (s) ==
+method                           0.25      0.5        1        2        4
+bp                              90.67    94.72    96.83    96.89    96.94
+bp accum 5 (write-matched)      92.11    95.22    96.00    96.28    96.50
+bp width 64                     96.89    96.89    96.89    96.89    96.89
+dfa                             84.44    94.78    95.89    96.00    96.06
+dfa noprec                      93.50    94.67    96.28    96.22    96.22
+ssfa P5                         92.72    94.44    95.44    95.94    96.00
+ssfa P5 noprec                  92.78    95.17    95.78    96.00    96.00
+sched shuffled                  92.67    94.83    95.94    96.50    96.44
+ssfa P2                         92.89    94.56    96.11    96.22    96.22
+
+== digits: test accuracy at the last eval within a WEIGHT-WRITE budget (layer-matrix writes) ==
+method                            500     1000     2000     5000    12000
+bp                              90.67    94.72    96.83    96.83    96.94
+bp accum 5 (write-matched)      96.11    96.39    96.56    96.56    96.56
+bp width 64                     91.28    95.56    96.22    96.94    96.89
+dfa                             84.44    94.78    95.72    96.06    96.11
+dfa noprec                      92.00    94.72    95.72    96.22    96.28
+ssfa P5                         95.17    95.83    95.89    96.00    96.00
+ssfa P5 noprec                  95.44    95.89    96.00    96.00    96.00
+sched shuffled                  95.39    96.11    96.50    96.44    96.44
+ssfa P2                         93.89    95.56    96.22    96.17    96.22
+
+== digits: median seconds / layer-writes to first reach target (n reached/seeds) ==

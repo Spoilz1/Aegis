@@ -1,0 +1,261 @@
+{
+ "a": {
+  "spec_formula": 0.2644628099173554,
+  "distinct_retained": 0.5167701863354037,
+  "peak_live": 0.5884244372990354,
+  "total": 0.9839127367358234
+ },
+ "b": [
+  {
+   "name": "bp",
+   "retained": 1.0,
+   "act_peak": 1.0,
+   "total": 1.0,
+   "flops": 1.0,
+   "act_peak_floats": 59712,
+   "total_floats": 473418
+  },
+  {
+   "name": "bp ckpt keep=[0, 3, 5, 6]",
+   "retained": 0.5229813664596273,
+   "act_peak": 0.5884244372990354,
+   "total": 0.9480881588786231,
+   "flops": 1.1418020679468242,
+   "act_peak_floats": 35136,
+   "total_floats": 448842
+  },
+  {
+   "name": "bp ckpt keep=[0, 2, 3, 5, 6]",
+   "retained": 0.6819875776397516,
+   "act_peak": 0.7256162915326902,
+   "total": 0.9653921059190821,
+   "flops": 1.0787789266371246,
+   "act_peak_floats": 43328,
+   "total_floats": 457034
+  },
+  {
+   "name": "bp ckpt keep=[0, 2, 3, 4, 5, 6]",
+   "retained": 0.8409937888198757,
+   "act_peak": 0.8628081457663451,
+   "total": 0.982696052959541,
+   "flops": 1.0157557853274248,
+   "act_peak_floats": 51520,
+   "total_floats": 465226
+  },
+  {
+   "name": "bp batch 8",
+   "retained": 0.25,
+   "act_peak": 0.25,
+   "total": 0.9054028363940535,
+   "flops": 0.25,
+   "act_peak_floats": 14928,
+   "total_floats": 428634
+  },
+  {
+   "name": "bp accum 5 (m=4 microbatches)",
+   "retained": 0.25,
+   "act_peak": 0.25,
+   "total": 1.6408417085957865,
+   "flops": 1.0,
+   "act_peak_floats": 14928,
+   "total_floats": 776804
+  },
+  {
+   "name": "bp width 128",
+   "retained": 0.5229813664596273,
+   "act_peak": 0.5198285101822079,
+   "total": 0.29486415810129735,
+   "flops": 0.2636632200886263,
+   "act_peak_floats": 31040,
+   "total_floats": 139594
+  },
+  {
+   "name": "bp width 64",
+   "retained": 0.284472049689441,
+   "act_peak": 0.2797427652733119,
+   "total": 0.0980317605160767,
+   "flops": 0.07274741506646971,
+   "act_peak_floats": 16704,
+   "total_floats": 46410
+  },
+  {
+   "name": "ssfa P2",
+   "retained": 1.0,
+   "act_peak": 1.0053590568060022,
+   "total": 1.0365005132884682,
+   "flops": 0.5073855243722304,
+   "act_peak_floats": 60032,
+   "total_floats": 490698
+  },
+  {
+   "name": "ssfa P2 (Omega from seed)",
+   "retained": 1.0,
+   "act_peak": 1.0053590568060022,
+   "total": 1.0040556125876077,
+   "flops": 0.5073855243722304,
+   "act_peak_floats": 60032,
+   "total_floats": 475338
+  },
+  {
+   "name": "ssfa P3",
+   "retained": 0.6819875776397516,
+   "act_peak": 0.7309753483386924,
+   "total": 1.0018926192075501,
+   "flops": 0.44936812735926474,
+   "act_peak_floats": 43648,
+   "total_floats": 474314
+  },
+  {
+   "name": "ssfa P3 (Omega from seed)",
+   "retained": 0.6819875776397516,
+   "act_peak": 0.7309753483386924,
+   "total": 0.9694477185066896,
+   "flops": 0.44936812735926474,
+   "act_peak_floats": 43648,
+   "total_floats": 458954
+  },
+  {
+   "name": "ssfa P5",
+   "retained": 0.5167701863354037,
+   "act_peak": 0.5884244372990354,
+   "total": 0.9839127367358234,
+   "flops": 0.4029542097488922,
+   "act_peak_floats": 35136,
+   "total_floats": 465802
+  },
+  {
+   "name": "ssfa P5 (Omega from seed)",
+   "retained": 0.5167701863354037,
+   "act_peak": 0.5884244372990354,
+   "total": 0.9514678360349628,
+   "flops": 0.4029542097488922,
+   "act_peak_floats": 35136,
+   "total_floats": 450442
+  },
+  {
+   "name": "ssfa P7",
+   "retained": 0.31801242236024846,
+   "act_peak": 0.5487674169346195,
+   "total": 0.9789108145444406,
+   "flops": 0.3830625307730182,
+   "act_peak_floats": 32768,
+   "total_floats": 463434
+  },
+  {
+   "name": "ssfa P7 (Omega from seed)",
+   "retained": 0.31801242236024846,
+   "act_peak": 0.5487674169346195,
+   "total": 0.9464659138435801,
+   "flops": 0.3830625307730182,
+   "act_peak_floats": 32768,
+   "total_floats": 448074
+  },
+  {
+   "name": "ssfa P5 blocked",
+   "retained": 0.47701863354037266,
+   "act_peak": 0.6859592711682744,
+   "total": 0.9962147615848996,
+   "flops": 0.4029542097488922,
+   "act_peak_floats": 40960,
+   "total_floats": 471626
+  }
+ ],
+ "c": [
+  {
+   "net": "digits",
+   "B": 1,
+   "act_share_bp": 0.004490196644624758,
+   "ssfa": 1.0389631640245252,
+   "ckpt": 0.9981519447893505,
+   "ckpt_flops": 1.1418020679468242
+  },
+  {
+   "net": "digits",
+   "B": 8,
+   "act_share_bp": 0.034826915270370525,
+   "ssfa": 1.0252336492205472,
+   "ckpt": 0.9856660927504585,
+   "ckpt_flops": 1.1418020679468242
+  },
+  {
+   "net": "digits",
+   "B": 32,
+   "act_share_bp": 0.1261295514745954,
+   "ssfa": 0.9839127367358234,
+   "ckpt": 0.9480881588786231,
+   "ckpt_flops": 1.1418020679468242
+  },
+  {
+   "net": "digits",
+   "B": 128,
+   "act_share_bp": 0.3660202833788468,
+   "ssfa": 0.8753451821611699,
+   "ckpt": 0.8493549959083846,
+   "ckpt_flops": 1.1418020679468242
+  },
+  {
+   "net": "digits",
+   "B": 512,
+   "act_share_bp": 0.6978258678341507,
+   "ssfa": 0.7251796438238899,
+   "ckpt": 0.7127919257788705,
+   "ckpt_flops": 1.1418020679468242
+  },
+  {
+   "net": "digits",
+   "B": 2048,
+   "act_share_bp": 0.9023189526816919,
+   "ssfa": 0.6326320327799335,
+   "ckpt": 0.6286275693142875,
+   "ckpt_flops": 1.1418020679468242
+  },
+  {
+   "net": "mnist",
+   "B": 1,
+   "act_share_bp": 0.0035146375275218137,
+   "ssfa": 1.0229851314251543,
+   "ckpt": 0.998956209736606,
+   "ckpt_flops": 1.2082931533269046
+  },
+  {
+   "net": "mnist",
+   "B": 8,
+   "act_share_bp": 0.027441960412902814,
+   "ssfa": 1.0153021295109845,
+   "ckpt": 0.9918501834504604,
+   "ckpt_flops": 1.2082931533269046
+  },
+  {
+   "net": "mnist",
+   "B": 32,
+   "act_share_bp": 0.1014184762226912,
+   "ssfa": 0.9915484603147757,
+   "ckpt": 0.969880359729688,
+   "ckpt_flops": 1.2082931533269046
+  },
+  {
+   "net": "mnist",
+   "B": 128,
+   "act_share_bp": 0.31103869378181964,
+   "ssfa": 0.9242399469273691,
+   "ckpt": 0.9076265596193204,
+   "ckpt_flops": 1.2082931533269046
+  },
+  {
+   "net": "mnist",
+   "B": 512,
+   "act_share_bp": 0.6436006544735483,
+   "ssfa": 0.8174551556319043,
+   "ckpt": 0.8088610585322177,
+   "ckpt_flops": 1.2082931533269046
+  },
+  {
+   "net": "mnist",
+   "B": 2048,
+   "act_share_bp": 0.8783952822556168,
+   "ssfa": 0.7420632037897462,
+   "ckpt": 0.7391308674507681,
+   "ckpt_flops": 1.2082931533269046
+  }
+ ]
+}
