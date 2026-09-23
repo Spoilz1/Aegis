@@ -28,7 +28,7 @@ def _key(spec):
 
 
 def dims_for(ds, width=256, depth=6):
-    d_in = 64 if ds == "digits" else 784
+    d_in = {"digits": 64}.get(ds, 196 if ds.endswith("_small") else 784)
     return [d_in] + [width] * depth + [10]
 
 

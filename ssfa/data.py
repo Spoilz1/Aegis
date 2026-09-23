@@ -64,10 +64,28 @@ def idx_dataset(name):
     return Xtr, _onehot(ytr.astype(int)), Xte, yte.astype(int)
 
 
+def small(name, n_train=5000, n_test=2000):
+    """Small, fast variant of an idx dataset: fixed random subset, 2x2
+    average-pooled to 14x14 (196 inputs), standardized on the subset."""
+    d = os.path.join(CACHE, name)
+    idx_dataset(name)  # ensure downloaded
+    Xtr, ytr, Xte, yte = [_idx(os.path.join(d, f)) for f in FILES]
+    r = np.random.RandomState(0)
+    tr, te = r.permutation(len(Xtr))[:n_train], r.permutation(len(Xte))[:n_test]
+    pool = lambda X: X.reshape(len(X), 14, 2, 14, 2).mean((2, 4)).reshape(len(X), -1) / 255
+    Xtr, Xte = _standardize(pool(Xtr[tr].astype(np.float64)), pool(Xte[te].astype(np.float64)))
+    return Xtr, _onehot(ytr[tr].astype(int)), Xte, yte[te].astype(int)
+
+
 def load(name, val=False):
     """val=True: return (train minus 20% holdout, holdout) for hyperparameter
     selection; the test set is never used for tuning."""
-    Xtr, Ytr, Xte, yte = digits() if name == "digits" else idx_dataset(name)
+    if name == "digits":
+        Xtr, Ytr, Xte, yte = digits()
+    elif name.endswith("_small"):
+        Xtr, Ytr, Xte, yte = small(name[:-6])
+    else:
+        Xtr, Ytr, Xte, yte = idx_dataset(name)
     if not val:
         return Xtr, Ytr, Xte, yte
     idx = np.random.RandomState(123).permutation(len(Xtr))
