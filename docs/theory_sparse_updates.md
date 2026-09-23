@@ -143,3 +143,39 @@ per epoch is clearly below BP (more than 1 point).
 - Minibatch noise and edge-of-stability behaviour can shift the optimum.
 - Coherence was measured on one small MLP. Convolutional and residual networks
   still need checking.
+
+## 8. Result of the pre-registered test (E8, `results/e8_sparse_bp.log`)
+
+Setup: digits, 3 seeds on the validation split to choose the learning rate,
+then 5 seeds on the test set.
+
+| layer order | lr 0.1 | 0.3 | **0.6** | 1.0 | 1.5 | 2.0 | 3.0 |
+|---|---|---|---|---|---|---|---|
+| stagger | 95.77 | 96.33 | **96.45** | 94.08 | 26.2 | 26.2 | 15.8 |
+| shuffled | 96.12 | 95.84 | **96.33** | 72.2 | 16.3 | 32.8 | 30.7 |
+| random subset | 96.14 | 96.45 | **96.63** | 60.2 | 42.2 | 44.6 | 27.7 |
+
+Test set: stagger at lr 0.6 scored **96.72 ± 0.32** (96.72 ± 0.41 at BP's own
+0.3), and shuffled at 0.6 scored **96.89 ± 0.32**. For comparison, full BP
+scored 96.94 ± 0.46, write-matched BP 96.56 ± 0.54 and SSFA 96.00 ± 0.57.
+Stagger and shuffled make 2,464 layer writes, the same as SSFA and
+write-matched BP. The random subset (97.11 ± 0.52) makes 3,520, so it is not
+write-matched.
+
+The measured backward depth was 5.00 layers per step, matching the hand count
+in section 6.
+
+Scoring against the prediction:
+
+1. **Learning-rate gain: falsified.** The best rate was 0.6, not 0.9 to 1.5.
+   The stable gain over BP is about 2x, while the kernel analysis predicted at
+   least 3.2 even for the worst set in the cycle. The first-order linear model
+   overestimates the gain. Likely causes are cross-entropy curvature beyond the
+   logit kernel, the O(eta^2) cross-terms within a cycle, and minibatch noise.
+2. **Accuracy parity with full BP at 20% of layer writes per step: confirmed**,
+   within seed noise.
+3. **Beating write-matched BP: not shown.** Sparse BP is ahead early (93.2% vs
+   92.1% after about 60 layer writes) but within noise at the end.
+
+Separately, exact gradients recover about 0.8 points over SSFA at identical
+writes. That points to the random feedback as the cost, not the sparsity.

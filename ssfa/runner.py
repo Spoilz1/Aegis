@@ -10,6 +10,11 @@ import json
 import multiprocessing as mp
 
 import numpy as np
+from threadpoolctl import threadpool_limits
+
+# The env vars above are too late if a script imported numpy first; limit
+# BLAS threads at runtime too (4 workers x 4 BLAS threads thrashed ~100x).
+threadpool_limits(1)
 
 from . import data
 from .core import BP, SSFA, SparseBP
